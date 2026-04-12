@@ -191,3 +191,4 @@ export default function Foglalas() {
 // gomb disabled
 // terem dekor
 // foglalas email
+// foglalas terem
