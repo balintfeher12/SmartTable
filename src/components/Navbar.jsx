@@ -66,3 +66,4 @@ export default function Navbar() {
 }// admin link
 // kijelentkezés
 // profil link
+// etlap link
