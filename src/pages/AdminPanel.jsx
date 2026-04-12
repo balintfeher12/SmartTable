@@ -173,3 +173,4 @@ const tdStyle = {
 };// vendég tab
 // statisztika
 // redirect
+// admin email
