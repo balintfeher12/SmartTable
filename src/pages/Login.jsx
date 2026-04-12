@@ -50,3 +50,4 @@ export default function Login() {
     </div>
   );
 }// hibakezelés
+// navigáció hozzáadva
