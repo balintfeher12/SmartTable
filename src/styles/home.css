@@ -1,0 +1,21 @@
+.hero {
+    position: relative;
+    height: 85vh;
+    background-image: url("https://images.unsplash.com/photo-1504674900247-0877df9cc836");
+    background-size: cover;
+  }
+  
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+  }
+  
+  .hero-box {
+    position: absolute;
+    top: 80px;
+    left: 80px;
+    background: #0b1c4d;
+    color: white;
+    padding: 50px;
+  }
