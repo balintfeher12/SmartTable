@@ -67,3 +67,4 @@ export default function Navbar() {
 // kijelentkezés
 // profil link
 // etlap link
+// navbar logo
