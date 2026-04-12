@@ -159,3 +159,4 @@ export default function App() {
   );
 }// routing frissítve
 // footer beillesztve
+// admin route javítva
