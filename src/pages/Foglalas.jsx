@@ -187,3 +187,4 @@ export default function Foglalas() {
 // foglalt asztal piros
 // kiválasztás sárga
 // token ellenőrzés
+// sikeres üzenet
