@@ -217,3 +217,4 @@ export default function Profil() {
 // módosítás modal
 // mentés üzenet
 // profil asztal
+// profil token
