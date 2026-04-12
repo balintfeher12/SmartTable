@@ -300,4 +300,4 @@
   box-shadow: 0 6px 20px rgba(250,204,21,0.35);
 }
 
-.modal-save:disabled { opacity: 0.4; cursor: not-allowed; }
+.modal-save:disabled { opacity: 0.4; cursor: not-allowed; }/* modal backdrop */
