@@ -158,3 +158,4 @@ export default function App() {
     </Router>
   );
 }// routing frissítve
+// footer beillesztve
