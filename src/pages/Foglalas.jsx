@@ -186,3 +186,4 @@ export default function Foglalas() {
 }// asztal szűrés
 // foglalt asztal piros
 // kiválasztás sárga
+// token ellenőrzés
