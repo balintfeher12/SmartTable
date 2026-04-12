@@ -214,3 +214,4 @@ export default function Profil() {
 }// telefon mező
 // foglalás lista
 // törlés gomb
+// módosítás modal
