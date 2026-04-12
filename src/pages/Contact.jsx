@@ -27,4 +27,4 @@ export default function Kapcsolat() {
       </div>
     </div>
   );
-}
+}// contact link
