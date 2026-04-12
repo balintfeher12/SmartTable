@@ -188,3 +188,4 @@ export default function Foglalas() {
 // kiválasztás sárga
 // token ellenőrzés
 // sikeres üzenet
+// gomb disabled
