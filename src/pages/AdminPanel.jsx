@@ -170,4 +170,4 @@ const thStyle = {
 const tdStyle = {
     padding: "12px 16px", color: "#ddd",
     fontSize: 14, borderBottom: "1px solid #222"
-};
+};// vendég tab
