@@ -1,0 +1,136 @@
+/* HÁTTÉR */
+.rolunk-page {
+    min-height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.9)),
+                url("https://images.unsplash.com/photo-1559339352-11d035aa65de");
+    background-size: cover;
+    background-position: center;
+    padding: 80px 20px;
+  }
+  
+  /* KÁRTYA */
+  .rolunk-card {
+    max-width: 900px;
+    margin: auto;
+    background: rgba(40, 25, 10, 0.9);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+    border: 1px solid rgba(250, 204, 21, 0.2);
+  }
+  
+  /* CÍM */
+  .rolunk-card h1 {
+    color: #facc15;
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  
+  /* SZÖVEG */
+  .rolunk-card p {
+    color: #e5e5e5;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+  
+  /* LISTA */
+  .rolunk-list {
+    margin-top: 20px;
+  }
+  
+  .rolunk-item {
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 12px;
+    background: rgba(0,0,0,0.4);
+    transition: 0.3s;
+  }
+  
+  /* HOVER */
+  .rolunk-item:hover {
+    background: rgba(250, 204, 21, 0.1);
+    transform: translateX(5px);
+  }
+  
+  /* ICON + CÍM */
+  .rolunk-item strong {
+    color: #facc15;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  /* IKON */
+  .rolunk-item span {
+    margin-right: 8px;
+  }
+
+  /* ALAP SZÖVEG */
+.rolunk-card {
+    color: #ffffff;
+  }
+  
+  /* BEKEZDÉS */
+  .rolunk-card p {
+    color: #f1f1f1;
+  }
+  
+  /* LISTA SZÖVEG */
+  .rolunk-item {
+    color: #f5f5f5;
+  }
+  
+  /* KIEMELT CÍMEK */
+  .rolunk-item strong {
+    color: #ffd700; /* arany */
+  }
+  
+  /* HOVER JOBB KONTRASZT */
+  .rolunk-item:hover {
+    color: #ffffff;
+  }
+  
+  /* EXTRA KONTRASZT (ha még halvány) */
+  .rolunk-card {
+    background: rgba(20, 10, 5, 0.95);
+  }
+
+  /* ========================= */
+/* 📱 TABLET */
+/* ========================= */
+@media (max-width: 768px) {
+
+    .rolunk-card {
+      padding: 25px;
+    }
+  
+    .rolunk-card h1 {
+      font-size: 26px;
+      text-align: center;
+    }
+  
+    .rolunk-card p {
+      font-size: 14px;
+    }
+  }
+  
+  /* ========================= */
+  /* 📱 MOBIL */
+  /* ========================= */
+  @media (max-width: 480px) {
+  
+    .rolunk-page {
+      padding: 40px 10px;
+    }
+  
+    .rolunk-card {
+      padding: 20px;
+    }
+  
+    .rolunk-card h1 {
+      font-size: 22px;
+    }
+  
+    .rolunk-card p {
+      font-size: 13px;
+    }
+  }
