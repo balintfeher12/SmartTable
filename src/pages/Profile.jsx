@@ -216,3 +216,4 @@ export default function Profil() {
 // törlés gomb
 // módosítás modal
 // mentés üzenet
+// profil asztal
