@@ -98,3 +98,4 @@ export default function Register() {
 }
  // validáció
 // email regex
+// jelszó min 6 kar
