@@ -100,3 +100,4 @@ export default function Register() {
 // email regex
 // jelszó min 6 kar
 // sikeres üzenet
+// register nav
