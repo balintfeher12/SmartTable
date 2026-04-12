@@ -93,3 +93,4 @@ export default function Etlap() {
 }// kategória tabok
 // animáció
 // foglalás cta
+// etlap arak
