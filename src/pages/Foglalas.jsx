@@ -190,3 +190,4 @@ export default function Foglalas() {
 // sikeres üzenet
 // gomb disabled
 // terem dekor
+// foglalas email
