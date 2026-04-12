@@ -51,3 +51,4 @@ export default function Login() {
   );
 }// hibakezelés
 // navigáció hozzáadva
+// stílus frissítve
