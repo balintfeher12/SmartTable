@@ -189,3 +189,4 @@ export default function Foglalas() {
 // token ellenőrzés
 // sikeres üzenet
 // gomb disabled
+// terem dekor
