@@ -79,3 +79,4 @@ export default function Footer() {
   );
 }// nyitvatartás
 // social ikonok
+// kapcsolat adatok
