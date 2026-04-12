@@ -172,3 +172,4 @@ const tdStyle = {
     fontSize: 14, borderBottom: "1px solid #222"
 };// vendég tab
 // statisztika
+// redirect
