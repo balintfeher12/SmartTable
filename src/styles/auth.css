@@ -1,0 +1,79 @@
+.auth-bg {
+  min-height: 100vh;
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+    url("https://images.unsplash.com/photo-1528605248644-14dd04022da1");
+  background-size: cover;
+  background-position: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* KÁRTYA */
+.auth-card {
+  background: rgba(0, 0, 0, 0.85);
+  padding: 50px;
+  width: 400px;
+  border-radius: 20px;
+  color: white;
+
+  box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+  backdrop-filter: blur(10px);
+}
+
+/* CÍM */
+.auth-card h1 {
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+/* INPUT */
+.auth-card input {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  background: #111;
+  color: white;
+  font-size: 14px;
+}
+
+/* FOCUS */
+.auth-card input:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 10px rgba(52,152,219,0.5);
+}
+
+/* GOMB */
+.auth-card button {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, #3498db, #6dd5fa);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/* HOVER */
+.auth-card button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.error-msg {
+  margin-top: 10px;
+  color: #ff4d4d;
+  text-align: center;
+}
+
+.success-msg {
+  margin-top: 10px;
+  color: #00e676;
+  text-align: center;
+}
