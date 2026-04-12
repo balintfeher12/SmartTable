@@ -91,3 +91,4 @@ export default function Etlap() {
     </div>
   );
 }// kategória tabok
+// animáció
