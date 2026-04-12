@@ -184,3 +184,4 @@ export default function Foglalas() {
     </div>
   );
 }// asztal szűrés
+// foglalt asztal piros
