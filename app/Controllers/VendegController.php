@@ -13,9 +13,6 @@ class VendegController {
         $this->pdo = $database->connect();
     }
 
-    // =========================
-    // REGISZTRÁCIÓ
-    // =========================
     public function register() {
         $data = json_decode(file_get_contents("php://input"), true);
 
@@ -53,9 +50,6 @@ class VendegController {
         echo json_encode(["success" => true]);
     }
 
-    // =========================
-    // LOGIN → JWT + NAPLÓ
-    // =========================
     public function login() {
         $data = json_decode(file_get_contents("php://input"), true);
 
@@ -71,13 +65,11 @@ class VendegController {
             return;
         }
 
-        // === TILTOTT FELHASZNÁLÓ ELLENŐRZÉS ===
         if (!empty($user['tiltott']) && $user['tiltott'] == 1) {
             echo json_encode(["success" => false, "message" => "Fiókja le van tiltva. Kérjük, lépjen kapcsolatba az étteremmel."]);
             return;
         }
 
-        // === BEJELENTKEZÉSI NAPLÓ ===
         $naplo = $this->pdo->prepare(
             "INSERT INTO bejelentkezes_naplo (vendeg_id) VALUES (?)"
         );
@@ -93,9 +85,6 @@ class VendegController {
         echo json_encode(["success" => true, "token" => $token]);
     }
 
-    // =========================
-    // TOKEN → USER ID
-    // =========================
     private function getUserIdFromToken() {
         $headers = getallheaders();
         $auth = $headers['Authorization'] ?? $_SERVER['HTTP_AUTHORIZATION'] ?? null;
@@ -110,9 +99,6 @@ class VendegController {
         }
     }
 
-    // =========================
-    // PROFIL (telefon is!)
-    // =========================
     public function profil() {
         $userId = $this->getUserIdFromToken();
         if (!$userId) {
@@ -127,9 +113,6 @@ class VendegController {
         echo json_encode(["success" => true, "data" => $stmt->fetch(PDO::FETCH_ASSOC)]);
     }
 
-    // =========================
-    // PROFIL FRISSÍTÉS
-    // =========================
     public function update() {
         $userId = $this->getUserIdFromToken();
         if (!$userId) {
@@ -149,5 +132,42 @@ class VendegController {
         $stmt2->execute([$telefon, $userId]);
 
         echo json_encode(["success" => true, "message" => "Frissítve"]);
+    }
+
+    public function jelszoValtas() {
+        $userId = $this->getUserIdFromToken();
+        if (!$userId) {
+            echo json_encode(["success" => false, "message" => "Érvénytelen token"]);
+            return;
+        }
+
+        $data        = json_decode(file_get_contents("php://input"), true);
+        $regiJelszo  = $data['regi_jelszo'] ?? '';
+        $ujJelszo    = $data['uj_jelszo']   ?? '';
+
+        if (!$regiJelszo || !$ujJelszo) {
+            echo json_encode(["success" => false, "message" => "Hiányzó adatok"]);
+            return;
+        }
+
+        if (strlen($ujJelszo) < 6) {
+            echo json_encode(["success" => false, "message" => "Az új jelszó legalább 6 karakter legyen!"]);
+            return;
+        }
+
+        $stmt = $this->pdo->prepare("SELECT jelszo FROM vendeg WHERE vendeg_id = ?");
+        $stmt->execute([$userId]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$user || !password_verify($regiJelszo, $user['jelszo'])) {
+            echo json_encode(["success" => false, "message" => "A jelenlegi jelszó helytelen!"]);
+            return;
+        }
+
+        $hash = password_hash($ujJelszo, PASSWORD_DEFAULT);
+        $update = $this->pdo->prepare("UPDATE vendeg SET jelszo = ? WHERE vendeg_id = ?");
+        $update->execute([$hash, $userId]);
+
+        echo json_encode(["success" => true, "message" => "Jelszó sikeresen megváltoztatva!"]);
     }
 }

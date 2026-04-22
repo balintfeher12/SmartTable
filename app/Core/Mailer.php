@@ -11,9 +11,6 @@ class Mailer {
 
     private const SITE_URL = 'https://smarttables.hu';
 
-    // =============================================
-    // ALAP KÜLDŐ
-    // =============================================
     public static function send(string $to, string $subject, string $body): void {
         $headers = "MIME-Version: 1.0\r\n";
         $headers .= "Content-type: text/html; charset=UTF-8\r\n";
@@ -26,9 +23,6 @@ class Mailer {
         }
     }
 
-    // =============================================
-    // KÖZÖS FEJLÉC + LÁBLÉC
-    // =============================================
     private static function layout(string $content, string $accentColor = '#facc15'): string {
         return "<!DOCTYPE html>
 <html lang='hu'>
@@ -95,9 +89,6 @@ class Mailer {
 </html>";
     }
 
-    // =============================================
-    // ÜDVÖZLŐ EMAIL (regisztráció után)
-    // =============================================
     public static function sendWelcome(string $to, string $nev): void {
         $siteUrl = self::SITE_URL;
         $content = "
@@ -147,16 +138,13 @@ class Mailer {
         self::send($to, "Üdvözöljük a SmartTables-ben, {$nev}!", self::layout($content));
     }
 
-    // =============================================
-    // FOGLALÁS VISSZAIGAZOLÁS
-    // =============================================
     public static function sendFoglalasVisszaigazolas(
-        string $to,
-        string $nev,
-        string $datum,
-        string $idopont,
-        int    $letszam,
-        int    $asztal_szam
+            string $to,
+            string $nev,
+            string $datum,
+            string $idopont,
+            int $letszam,
+            int $asztal_szam
     ): void {
         $siteUrl = self::SITE_URL;
         $content = "
@@ -216,14 +204,11 @@ class Mailer {
         self::send($to, "Foglalás visszaigazolása – {$datum} {$idopont}", self::layout($content));
     }
 
-    // =============================================
-    // FOGLALÁS TÖRLÉS ÉRTESÍTŐ
-    // =============================================
     public static function sendFoglalasTorles(
-        string $to,
-        string $nev,
-        string $datum,
-        string $idopont
+            string $to,
+            string $nev,
+            string $datum,
+            string $idopont
     ): void {
         $siteUrl = self::SITE_URL;
         $content = "
@@ -275,27 +260,22 @@ class Mailer {
         self::send($to, "Foglalása törölve – SmartTables", self::layout($content, '#e74c3c'));
     }
 
-    // =============================================
-    // ADMIN ÉRTESÍTŐ - ÚJ FOGLALÁS
-    // =============================================
     public static function sendAdminUjFoglalas(
-        string  $vendeg_nev,
-        string  $vendeg_email,
-        string  $datum,
-        string  $idopont,
-        int     $letszam,
-        int     $asztal_szam,
-        ?string $megjegyzes = null
+            string $vendeg_nev,
+            string $vendeg_email,
+            string $datum,
+            string $idopont,
+            int $letszam,
+            int $asztal_szam,
+            ?string $megjegyzes = null
     ): void {
         $siteUrl = self::SITE_URL;
         $adminEmail = $_ENV['ADMIN_EMAIL'] ?? 'info@smarttables.hu';
 
-        $megjegyzesSor = $megjegyzes
-            ? "<tr style='background:#f8f9ff;'>
+        $megjegyzesSor = $megjegyzes ? "<tr style='background:#f8f9ff;'>
                 <td style='padding:14px 20px; color:#888; font-size:14px; width:40%;'>💬 Megjegyzés</td>
                 <td style='padding:14px 20px; color:#222; font-weight:bold; font-size:14px;'>{$megjegyzes}</td>
-               </tr>"
-            : "";
+               </tr>" : "";
 
         $content = "
         <h2 style='color:#0b1c4d; margin-top:0; font-size:24px;'>Új foglalás érkezett! 🔔</h2>
@@ -349,5 +329,94 @@ class Mailer {
         </table>";
 
         self::send($adminEmail, "🔔 Új foglalás – {$vendeg_nev} – {$datum} {$idopont}", self::layout($content));
+    }
+
+    public static function sendTiltasErtesito(string $to, string $nev): void {
+        $siteUrl = self::SITE_URL;
+        $content = "
+    <h2 style='color:#c0392b; margin-top:0; font-size:24px;'>Fiókja le lett tiltva ⛔</h2>
+
+    <p style='color:#555; line-height:1.8; font-size:15px;'>
+        Kedves <strong style='color:#0b1c4d;'>{$nev}</strong>,
+    </p>
+
+    <p style='color:#555; line-height:1.8; font-size:15px;'>
+        Értesítjük, hogy fiókját az étterem adminisztrátora letiltotta.<br>
+        Amíg a tiltás érvényben van, nem tud bejelentkezni és asztalt foglalni.
+    </p>
+
+    <p style='color:#555; line-height:1.8; font-size:15px;'>
+        Ha úgy gondolja, hogy ez tévedés, kérjük lépjen kapcsolatba velünk:
+    </p>
+
+    <table cellpadding='0' cellspacing='0' style='margin-top:16px;'>
+      <tr>
+        <td style='background:#0b1c4d; border-radius:10px; padding:14px 28px;'>
+          <a href='{$siteUrl}/kapcsolat'
+             style='color:#facc15; text-decoration:none; font-weight:bold; font-size:15px;'>
+            Kapcsolatfelvétel →
+          </a>
+        </td>
+      </tr>
+    </table>
+
+    <p style='color:#999; font-size:13px; margin-top:30px;'>
+        Ha a tiltás feloldásra kerül, újra bejelentkezhet fiókjába.
+    </p>";
+
+        self::send($to, "Fiókja le lett tiltva – SmartTables", self::layout($content, '#e74c3c'));
+    }
+
+    public static function sendFeloldasErtesito(string $to, string $nev): void {
+        $siteUrl = self::SITE_URL;
+        $content = "
+    <h2 style='color:#0b1c4d; margin-top:0; font-size:24px;'>Fiókja feloldva! ✅</h2>
+
+    <p style='color:#555; line-height:1.8; font-size:15px;'>
+        Kedves <strong style='color:#0b1c4d;'>{$nev}</strong>,
+    </p>
+
+    <p style='color:#555; line-height:1.8; font-size:15px;'>
+        Értesítjük, hogy fiókjának tiltása feloldásra került.<br>
+        Mostantól újra bejelentkezhet és asztalt foglalhat.
+    </p>
+
+    <table cellpadding='0' cellspacing='0' style='margin-top:16px;'>
+      <tr>
+        <td style='background:#0b1c4d; border-radius:10px; padding:14px 28px;'>
+          <a href='{$siteUrl}/login'
+             style='color:#facc15; text-decoration:none; font-weight:bold; font-size:15px;'>
+            Bejelentkezés →
+          </a>
+        </td>
+      </tr>
+    </table>";
+
+        self::send($to, "Fiókja feloldva – SmartTables", self::layout($content));
+    }
+
+    public static function sendKapcsolatUzenet(string $nev, string $email, string $uzenet): void {
+        $adminEmail = $_ENV['ADMIN_EMAIL'] ?? 'info@smarttables.hu';
+        $siteUrl = self::SITE_URL;
+        $content = "
+    <h2 style='color:#0b1c4d; margin-top:0; font-size:24px;'>Új kapcsolatfelvételi üzenet ✉️</h2>
+    <table width='100%' cellpadding='0' cellspacing='0' style='margin: 24px 0; border-radius:12px; overflow:hidden; border:1px solid #e8eaf0;'>
+      <tr style='background:#0b1c4d;'>
+        <td colspan='2' style='padding:14px 20px; color:#facc15; font-weight:bold; font-size:14px;'>ÜZENET ADATAI</td>
+      </tr>
+      <tr style='background:#f8f9ff;'>
+        <td style='padding:14px 20px; color:#888; font-size:14px; width:30%;'>👤 Név</td>
+        <td style='padding:14px 20px; color:#222; font-weight:bold; font-size:14px;'>{$nev}</td>
+      </tr>
+      <tr style='background:#ffffff;'>
+        <td style='padding:14px 20px; color:#888; font-size:14px;'>📧 Email</td>
+        <td style='padding:14px 20px; color:#222; font-weight:bold; font-size:14px;'>{$email}</td>
+      </tr>
+      <tr style='background:#f8f9ff;'>
+        <td style='padding:14px 20px; color:#888; font-size:14px;'>💬 Üzenet</td>
+        <td style='padding:14px 20px; color:#222; font-size:14px;'>{$uzenet}</td>
+      </tr>
+    </table>";
+        self::send($adminEmail, "✉️ Új üzenet – {$nev}", self::layout($content));
     }
 }

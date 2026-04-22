@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/config.php';
 
@@ -13,25 +14,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 header("Content-Type: application/json");
 
-// CORE BETÖLTÉSE
 require_once __DIR__ . '/app/Core/Database.php';
 require_once __DIR__ . '/app/Core/Response.php';
 require_once __DIR__ . '/app/Core/Mailer.php';
 
-// CONTROLLEREK
 require_once __DIR__ . '/app/Controllers/AsztalController.php';
 require_once __DIR__ . '/app/Controllers/FoglalasController.php';
 require_once __DIR__ . '/app/Controllers/VendegController.php';
 require_once __DIR__ . '/app/Controllers/AdminController.php';
 
-// ROUTING
-$uri  = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$path = str_replace('/Backendd/index.php', '', $uri);
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$path = str_replace('/api/index.php', '', $uri);
 $method = $_SERVER['REQUEST_METHOD'];
 
-// =====================
-// ASZTAL
-// =====================
 if ($method === 'GET' && $path === '/asztalok') {
     (new AsztalController())->index();
     exit;
@@ -41,9 +36,6 @@ if ($method === 'GET' && $path === '/asztalok/szabad') {
     exit;
 }
 
-// =====================
-// FOGLALÁS
-// =====================
 if ($method === 'POST' && $path === '/foglalas') {
     (new FoglalasController())->store();
     exit;
@@ -61,9 +53,6 @@ if ($method === 'DELETE' && preg_match('#^/foglalas/(\d+)$#', $path, $matches)) 
     exit;
 }
 
-// =====================
-// VENDÉG
-// =====================
 if ($method === 'POST' && $path === '/vendeg/register') {
     (new VendegController())->register();
     exit;
@@ -81,9 +70,6 @@ if ($method === 'PUT' && $path === '/vendeg/update') {
     exit;
 }
 
-// =====================
-// ADMIN
-// =====================
 if ($method === 'POST' && $path === '/admin/login') {
     (new AdminController())->login();
     exit;
@@ -97,26 +83,44 @@ if ($method === 'GET' && $path === '/admin/foglalasok') {
     exit;
 }
 
-// Vendég tiltás/feloldás toggle
 if ($method === 'PATCH' && preg_match('#^/admin/vendeg/(\d+)/tiltas$#', $path, $matches)) {
     (new AdminController())->tiltasToggle($matches[1]);
     exit;
 }
 
-// Asztal hozzáadása
 if ($method === 'POST' && $path === '/admin/asztal') {
     (new AdminController())->asztalHozzaad();
     exit;
 }
 
-// Asztal törlése
 if ($method === 'DELETE' && preg_match('#^/admin/asztal/(\d+)$#', $path, $matches)) {
     (new AdminController())->asztalTorol($matches[1]);
     exit;
 }
 
-// =====================
-// 404
-// =====================
+if ($method === 'PUT' && $path === '/vendeg/jelszo') {
+    (new VendegController())->jelszoValtas();
+    exit;
+}
+
+if ($method === 'PATCH' && preg_match('#^/admin/asztal/(\d+)/pozicio$#', $path, $matches)) {
+    (new AdminController())->asztalPozicio($matches[1]);
+    exit;
+}
+
+if ($method === 'POST' && $path === '/kapcsolat') {
+    $data = json_decode(file_get_contents("php://input"), true);
+    $nev = $data['nev'] ?? '';
+    $email = $data['email'] ?? '';
+    $uzenet = $data['uzenet'] ?? '';
+    if (!$nev || !$email || !$uzenet) {
+        echo json_encode(["success" => false, "message" => "Hiányzó adatok"]);
+    } else {
+        Mailer::sendKapcsolatUzenet($nev, $email, $uzenet);
+        echo json_encode(["success" => true]);
+    }
+    exit;
+}
+
 http_response_code(404);
 echo json_encode(["error" => "Nincs ilyen végpont", "path" => $path, "method" => $method]);
