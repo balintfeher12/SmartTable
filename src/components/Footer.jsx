@@ -6,7 +6,6 @@ export default function Footer() {
     <footer className="footer">
       <div className="footer-inner">
 
-        {/* LOGO + MOTTÓ */}
         <div className="footer-col footer-brand">
           <div className="footer-logo">
             <img src="/logo.png" alt="SmartTable" className="footer-logo-img" />
@@ -36,7 +35,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* NAVIGÁCIÓ */}
         <div className="footer-col">
           <h4 className="footer-heading">Navigáció</h4>
           <ul className="footer-links">
@@ -45,24 +43,14 @@ export default function Footer() {
             <li><Link to="/foglalas">Foglalás</Link></li>
             <li><Link to="/rolunk">Rólunk</Link></li>
             <li><Link to="/kapcsolat">Kapcsolat</Link></li>
+            <li><Link to="/adatvedelem">Adatvédelem</Link></li>
           </ul>
         </div>
 
-        {/* NYITVATARTÁS */}
-        <div className="footer-col">
-          <h4 className="footer-heading">Nyitvatartás</h4>
-          <ul className="footer-hours">
-            <li><span>Hétfő – Csütörtök</span><span>11:00 – 22:00</span></li>
-            <li><span>Péntek – Szombat</span><span>11:00 – 23:30</span></li>
-            <li><span>Vasárnap</span><span>12:00 – 21:00</span></li>
-          </ul>
-        </div>
 
-        {/* KAPCSOLAT */}
         <div className="footer-col">
           <h4 className="footer-heading">Elérhetőség</h4>
           <ul className="footer-contact">
-            <li>📍 7621 Pécs, Fő utca 1.</li>
             <li>📞 +36 30 123 4567</li>
             <li>📧 info@smarttable.hu</li>
           </ul>
@@ -70,7 +58,6 @@ export default function Footer() {
 
       </div>
 
-      {/* ALSÓ SÁV */}
       <div className="footer-bottom">
         <p>© 2026 SmartTable. Minden jog fenntartva.</p>
         <p>Fejlesztette: Fehér Bálint, Balikó Benjámin, Ignácz Dávid</p>

@@ -10,7 +10,6 @@ body {
   padding: 0;
 }
 
-/* ÜZENETEK */
 .error-msg {
   margin-top: 15px;
   color: #ff4d4d;
@@ -31,4 +30,4 @@ body {
 
 button:disabled {
   opacity: 0.5;
-}/* base font */
+}

@@ -1,4 +1,3 @@
-/* HÁTTÉR */
 .profil-page {
   min-height: 100vh;
   background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)),
@@ -7,7 +6,6 @@
   padding: 50px 20px;
 }
 
-/* KÁRTYA */
 .profil-card {
   background: rgba(30, 20, 10, 0.95);
   border-radius: 20px;
@@ -17,12 +15,10 @@
   box-shadow: 0 20px 60px rgba(0,0,0,0.7);
 }
 
-/* CÍM */
 .profil-card h2 {
   color: #facc15;
 }
 
-/* INPUT */
 .form-row {
   display: flex;
   gap: 10px;
@@ -38,7 +34,6 @@
   color: white;
 }
 
-/* GOMB */
 .profil-card button {
   margin-top: 15px;
   background: linear-gradient(135deg, #facc15, #d97706);
@@ -48,7 +43,6 @@
   cursor: pointer;
 }
 
-/* FOGLALÁS */
 .foglalas-card-item {
   background: rgba(20, 15, 10, 0.95);
   border-radius: 15px;
@@ -59,7 +53,6 @@
   align-items: center;
 }
 
-/* TÖRLÉS */
 .delete-btn {
   background: red;
   border: none;
@@ -69,40 +62,33 @@
   cursor: pointer;
 }
 
-/* ÁLTALÁNOS SZÖVEG */
 .profil-card {
   color: #f5f5f5;
 }
 
-/* FOGLALÁS SZÖVEG */
 .foglalas-info {
   color: #e5e5e5;
   font-size: 15px;
 }
 
-/* CÍMEK ERŐSEBBEK */
 .profil-card h2 {
   color: #facc15;
   text-shadow: 0 0 8px rgba(250, 204, 21, 0.4);
 }
 
-/* INPUT SZÖVEG */
 .form-row input {
   color: #ffffff;
   background: rgba(0,0,0,0.7);
 }
 
-/* PLACEHOLDER */
 .form-row input::placeholder {
   color: #bbb;
 }
 
-/* KÁRTYÁK KONTRASZT */
 .foglalas-card-item {
   background: rgba(15, 10, 5, 0.95);
 }
 
-/* EXTRA: ikonok világosabb */
 .foglalas-info {
   filter: brightness(1.2);
 }
@@ -115,9 +101,6 @@
   backdrop-filter: blur(8px);
 }
 
-/* ========================= */
-/* 📱 TABLET */
-/* ========================= */
 @media (max-width: 768px) {
   .profil-card {
     padding: 25px;
@@ -138,9 +121,6 @@
   }
 }
 
-/* ========================= */
-/* 📱 MOBIL */
-/* ========================= */
 @media (max-width: 480px) {
   .profil-page {
     padding: 40px 10px;
@@ -164,9 +144,6 @@
   }
 }
 
-/* ========================= */
-/* MÓDOSÍTÁS GOMB            */
-/* ========================= */
 .edit-btn {
   background: linear-gradient(135deg, #3b82f6, #1d4ed8);
   border: none;
@@ -183,9 +160,6 @@
   box-shadow: 0 4px 12px rgba(59,130,246,0.4);
 }
 
-/* ========================= */
-/* MODAL BACKDROP            */
-/* ========================= */
 .modal-backdrop {
   position: fixed;
   inset: 0;
@@ -197,9 +171,6 @@
   backdrop-filter: blur(4px);
 }
 
-/* ========================= */
-/* MODAL BOX                 */
-/* ========================= */
 .modal-box {
   background: rgba(20, 14, 5, 0.97);
   border: 1px solid rgba(250,204,21,0.25);
@@ -217,9 +188,7 @@
   font-size: 20px;
 }
 
-/* ========================= */
-/* MODAL FORM                */
-/* ========================= */
+
 .modal-form {
   display: flex;
   flex-direction: column;
@@ -259,9 +228,6 @@
   color: white;
 }
 
-/* ========================= */
-/* MODAL GOMBOK              */
-/* ========================= */
 .modal-btns {
   display: flex;
   gap: 12px;

@@ -20,10 +20,8 @@ export default function AdminLogin() {
 
             if (data.success) {
 
-                // 🔐 ADMIN ADAT
                 localStorage.setItem("admin", JSON.stringify(data.data.admin));
 
-                // 🔐 TOKEN
                 localStorage.setItem("token", data.data.token);
 
                 navigate("/admin");

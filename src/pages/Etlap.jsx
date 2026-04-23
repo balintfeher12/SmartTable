@@ -20,7 +20,7 @@ const menu = {
     { nev: "Crème brûlée", leiras: "Vaníliás karamell, friss erdei gyümölcsökkel", ar: 2600 },
     { nev: "Étcsokoládé fondant", leiras: "Folyós csokis szívvel, vaníliafagylalttal", ar: 2900 },
     { nev: "Tiramisu", leiras: "Házi mascarpone krém, erős eszpresszó, kakaópor", ar: 2800 },
-    { nev: "Sárgabarack panna cotta", larias: "Lime zselével, pisztáciás morzsával", ar: 2400 },
+    { nev: "Sárgabarack panna cotta", lerias: "Lime zselével, pisztáciás morzsával", ar: 2400 },
   ],
   "Italok": [
     { nev: "Házi limonádé", leiras: "Friss citrom, menta, gyömbér – 3 ízben", ar: 1200 },
@@ -55,7 +55,6 @@ export default function Etlap() {
       </div>
 
       <div className="etlap-body">
-        {/* Kategória tabok */}
         <div className="etlap-tabs">
           {Object.keys(menu).map(kat => (
             <button
@@ -69,7 +68,6 @@ export default function Etlap() {
           ))}
         </div>
 
-        {/* Ételek rácsa */}
         <div className="etlap-grid">
           {menu[aktiv].map((etel, i) => (
             <div className="etlap-card" key={i} style={{ animationDelay: `${i * 60}ms` }}>
@@ -82,7 +80,6 @@ export default function Etlap() {
           ))}
         </div>
 
-        {/* CTA */}
         <div className="etlap-cta">
           <p>Megkóstolná kínálatunkat?</p>
           <a href="/foglalas" className="etlap-cta-btn">Asztalt foglalok →</a>

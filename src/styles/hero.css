@@ -1,4 +1,3 @@
-/* ===== HERO ===== */
 .hero {
   position: relative;
   height: 88vh;
@@ -91,7 +90,6 @@
   border-color: white;
 }
 
-/* Mobil */
 @media (max-width: 768px) {
   .hero-box {
     left: 24px;
@@ -104,7 +102,6 @@
   .hero-box h1 { font-size: 36px; }
 }
 
-/* ===== ELŐNYÖK SÁV ===== */
 .features-bar {
   background: #0b1c4d;
   padding: 28px 60px;
@@ -154,7 +151,6 @@
   .feature-item { padding: 10px 16px; }
 }
 
-/* ===== ABOUT STRIP ===== */
 .about-strip {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -222,7 +218,6 @@
   .about-strip-text h2 { font-size: 26px; }
 }
 
-/* ===== ÉTLAP KIEMELT ===== */
 .menu-teaser {
   background: #0a0a0a;
   padding: 80px 40px;
@@ -282,7 +277,6 @@
   .menu-teaser { padding: 50px 20px; }
 }
 
-/* ===== CTA SÁV ===== */
 .cta-strip {
   background: linear-gradient(135deg, #0b1c4d 0%, #1a3a6b 100%);
   padding: 80px 40px;
@@ -305,8 +299,4 @@
 @media (max-width: 600px) {
   .cta-strip { padding: 50px 24px; }
   .cta-strip h2 { font-size: 26px; }
-}/* hero gomb */
-/* features sáv */
-/* menu teaser */
-/* cta strip */
-/* hero about */
+}

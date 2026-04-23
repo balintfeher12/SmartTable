@@ -28,7 +28,7 @@ export default function Login() {
 
       localStorage.setItem("token", data.token);
 
-      navigate("/profil"); // 🔥 EZ HIÁNYZOTT
+      navigate("/profil");
 
     } catch {
       setError("Hálózati hiba");

@@ -11,7 +11,13 @@ export default function Profil() {
   const [saveMsg, setSaveMsg] = useState("");
   const [saveError, setSaveError] = useState("");
 
-  // Módosítás modal
+  const [regiJelszo, setRegiJelszo] = useState("");
+  const [ujJelszo, setUjJelszo] = useState("");
+  const [jelszoMsg, setJelszoMsg] = useState("");
+  const [jelszoError, setJelszoError] = useState("");
+  const [showRegiJelszo, setShowRegiJelszo] = useState(false);
+  const [showUjJelszo, setShowUjJelszo] = useState(false);
+
   const [editFoglalas, setEditFoglalas] = useState(null);
   const [editDatum, setEditDatum] = useState("");
   const [editIdopont, setEditIdopont] = useState("");
@@ -41,7 +47,6 @@ export default function Profil() {
       .then(d => setFoglalasok(d.data || []));
   }, []);
 
-  // Szabad asztalok lekérése módosításhoz
   useEffect(() => {
     if (!editDatum || !editIdopont) return;
     fetch(`${API}/foglalas/foglalt?datum=${editDatum}&idopont=${editIdopont}`)
@@ -51,7 +56,6 @@ export default function Profil() {
         fetch(`${API}/asztalok`)
           .then(r => r.json())
           .then(a => {
-            // Kizárjuk a foglaltakat, de az aktuálisan szerkesztett asztal maradhat
             const szabad = (a.data || []).filter(
               asz => !foglaltIds.includes(asz.asztal_id) || asz.asztal_id === editFoglalas?.asztal_id
             );
@@ -72,6 +76,25 @@ export default function Profil() {
     else { setSaveError("❌ Hiba történt."); setTimeout(() => setSaveError(""), 3000); }
   };
 
+  const handleJelszo = async () => {
+    setJelszoMsg(""); setJelszoError("");
+    if (!regiJelszo || !ujJelszo) { setJelszoError("Töltsd ki mindkét mezőt!"); return; }
+    if (ujJelszo.length < 6) { setJelszoError("Az új jelszó legalább 6 karakter legyen!"); return; }
+    const res = await fetch(`${API}/vendeg/jelszo`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
+      body: JSON.stringify({ regi_jelszo: regiJelszo, uj_jelszo: ujJelszo })
+    });
+    const d = await res.json();
+    if (d.success) {
+      setJelszoMsg("✅ Jelszó sikeresen megváltoztatva!");
+      setRegiJelszo(""); setUjJelszo("");
+      setTimeout(() => setJelszoMsg(""), 3000);
+    } else {
+      setJelszoError("❌ " + (d.message || "Hiba történt"));
+    }
+  };
+
   const handleDelete = async (id) => {
     if (!window.confirm("Biztos törlöd ezt a foglalást?")) return;
     await fetch(`${API}/foglalas/${id}`, {
@@ -81,7 +104,6 @@ export default function Profil() {
     setFoglalasok(foglalasok.filter(f => f.foglalas_id !== id));
   };
 
-  // Módosítás modal megnyitása
   const openEdit = (f) => {
     setEditFoglalas(f);
     setEditDatum(f.datum);
@@ -95,12 +117,10 @@ export default function Profil() {
   const handleEdit = async () => {
     setEditMsg(""); setEditError("");
     try {
-      // Töröljük a régit
       await fetch(`${API}/foglalas/${editFoglalas.foglalas_id}`, {
         method: "DELETE",
         headers: { Authorization: "Bearer " + token }
       });
-      // Létrehozunk egy újat
       const res = await fetch(`${API}/foglalas`, {
         method: "POST",
         headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
@@ -114,7 +134,6 @@ export default function Profil() {
       const d = await res.json();
       if (d.success) {
         setEditMsg("✅ Foglalás módosítva!");
-        // Frissítjük a listát
         const r2 = await fetch(`${API}/foglalas/sajat`, { headers: { Authorization: "Bearer " + token } });
         const d2 = await r2.json();
         setFoglalasok(d2.data || []);
@@ -143,6 +162,37 @@ export default function Profil() {
         {saveMsg   && <p className="success-msg">{saveMsg}</p>}
         {saveError && <p className="error-msg">{saveError}</p>}
 
+        <h2 style={{ marginTop: 30 }}>🔒 Jelszó módosítása</h2>
+        <div className="form-row">
+          <div style={{ position: "relative" }}>
+            <input
+              type={showRegiJelszo ? "text" : "password"}
+              placeholder="Jelenlegi jelszó"
+              value={regiJelszo}
+              onChange={e => setRegiJelszo(e.target.value)}
+            />
+            <span onClick={() => setShowRegiJelszo(!showRegiJelszo)}
+              style={{ position: "absolute", right: 10, top: "50%", transform: "translateY(-50%)", cursor: "pointer" }}>
+              {showRegiJelszo ? "🙈" : "👁"}
+            </span>
+          </div>
+          <div style={{ position: "relative" }}>
+            <input
+              type={showUjJelszo ? "text" : "password"}
+              placeholder="Új jelszó (min. 6 karakter)"
+              value={ujJelszo}
+              onChange={e => setUjJelszo(e.target.value)}
+            />
+            <span onClick={() => setShowUjJelszo(!showUjJelszo)}
+              style={{ position: "absolute", right: 10, top: "50%", transform: "translateY(-50%)", cursor: "pointer" }}>
+              {showUjJelszo ? "🙈" : "👁"}
+            </span>
+          </div>
+        </div>
+        <button onClick={handleJelszo}>🔒 Jelszó módosítása</button>
+        {jelszoMsg   && <p className="success-msg">{jelszoMsg}</p>}
+        {jelszoError && <p className="error-msg">{jelszoError}</p>}
+
         <h2 style={{ marginTop: 30 }}>📅 Foglalások</h2>
 
         {foglalasok.length === 0 && <p style={{ color: "#aaa" }}>Nincs aktív foglalása.</p>}
@@ -164,9 +214,6 @@ export default function Profil() {
 
       </div>
 
-      {/* ========================= */}
-      {/* MÓDOSÍTÁS MODAL           */}
-      {/* ========================= */}
       {editFoglalas && (
         <div className="modal-backdrop" onClick={() => setEditFoglalas(null)}>
           <div className="modal-box" onClick={e => e.stopPropagation()}>
@@ -211,10 +258,4 @@ export default function Profil() {
       )}
     </div>
   );
-}// telefon mező
-// foglalás lista
-// törlés gomb
-// módosítás modal
-// mentés üzenet
-// profil asztal
-// profil token
+}

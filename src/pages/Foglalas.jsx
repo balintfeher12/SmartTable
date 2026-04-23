@@ -29,7 +29,6 @@ function Szekek({ forma, ferohely }) {
     );
   }
 
-  // Téglalap: ülőhelyek fent, lent, és ha sok, oldalt is
   const oldalankent = Math.min(Math.ceil(ferohely / 2), 4);
   const topDb    = Math.min(Math.ceil(ferohely / 2), oldalankent);
   const bottomDb = Math.min(Math.floor(ferohely / 2), oldalankent);
@@ -54,6 +53,7 @@ export default function Foglalas() {
   const [datum, setDatum] = useState("");
   const [idopont, setIdopont] = useState("");
   const [letszam, setLetszam] = useState("");
+  const [megjegyzes, setMegjegyzes] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [foglaltAsztalok, setFoglaltAsztalok] = useState([]);
@@ -83,13 +83,13 @@ export default function Foglalas() {
       const res = await fetch("http://localhost:8888/Backendd/index.php/foglalas", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
-        body: JSON.stringify({ datum, idopont, letszam, asztal_id: selectedAsztal })
+        body: JSON.stringify({ datum, idopont, letszam, asztal_id: selectedAsztal, megjegyzes })
       });
       const data = await res.json();
       if (!data.success) { setError(data.message); setSuccess(""); }
       else {
         setSuccess("✅ Sikeres foglalás!");
-        setSelectedAsztal(null); setLetszam(""); setError("");
+        setSelectedAsztal(null); setLetszam(""); setMegjegyzes(""); setError("");
         setTimeout(() => setSuccess(""), 3000);
       }
     } catch { setError("Hálózati hiba"); }
@@ -114,41 +114,37 @@ export default function Foglalas() {
             <input type="number" min="1" max="12" placeholder="pl. 4 fő"
               value={letszam} onChange={e => setLetszam(e.target.value)} />
           </div>
+          <div className="input-group">
+            <label>Megjegyzés (opcionális)</label>
+            <input type="text" placeholder="pl. születésnap, allergia..."
+              value={megjegyzes} onChange={e => setMegjegyzes(e.target.value)} />
+          </div>
         </div>
 
-        {/* JELMAGYARÁZAT */}
         <div className="jelmagyarazat">
           <span className="jelm-item"><span className="jelm-dot szabad" /> Szabad</span>
           <span className="jelm-item"><span className="jelm-dot foglalt" /> Foglalt</span>
           <span className="jelm-item"><span className="jelm-dot kivalasztva" /> Kiválasztva</span>
-          <span className="jelm-item"><span className="jelm-kerek" /> Kerek</span>
-          <span className="jelm-item"><span className="jelm-teglalap" /> Téglalap</span>
         </div>
 
         <h3>Válassz asztalt</h3>
 
-        {/* TEREM */}
         <div className="etterem-terem">
 
-          {/* Ablaksor */}
           <div className="terem-fal terem-fal-ablak">
             {[1,2,3,4,5,6].map(i => <div key={i} className="ablak-elem" />)}
           </div>
 
-          {/* Bár / Pult */}
           <div className="terem-bar">
             <span className="bar-label">Bár</span>
           </div>
 
-          {/* Növények sarokba */}
           <span className="terem-noveny" style={{ bottom: 20, left: 50 }}>🌿</span>
           <span className="terem-noveny" style={{ bottom: 20, right: 20 }}>🌱</span>
           <span className="terem-noveny" style={{ top: 35, right: 16 }}>🪴</span>
 
-          {/* Bejárat */}
           <div className="terem-bejarat">🚪 Bejárat</div>
 
-          {/* ASZTALOK */}
           {szurtAsztalok.map(a => {
             const isFoglalt    = foglaltAsztalok.includes(a.asztal_id);
             const isKivalasztva = selectedAsztal === a.asztal_id;
@@ -161,6 +157,11 @@ export default function Foglalas() {
                 className={`asztal-container asztal-${a.asztal_szam} ${forma} ${allapot} ferohely-${a.ferohely}`}
                 onClick={() => !isFoglalt && setSelectedAsztal(a.asztal_id)}
                 title={`${a.asztal_szam}. asztal – max. ${a.ferohely} fő`}
+                style={{
+                  position: "absolute",
+                  left: a.x_pozicio ? parseInt(a.x_pozicio) + "px" : undefined,
+                  top: a.y_pozicio ? parseInt(a.y_pozicio) + "px" : undefined,
+                }}
               >
                 <div className={`asztal-shape asztal-shape-${forma}`}>
                   <span className="asztal-num">{a.asztal_szam}</span>
@@ -183,12 +184,4 @@ export default function Foglalas() {
       </div>
     </div>
   );
-}// asztal szűrés
-// foglalt asztal piros
-// kiválasztás sárga
-// token ellenőrzés
-// sikeres üzenet
-// gomb disabled
-// terem dekor
-// foglalas email
-// foglalas terem
+}
