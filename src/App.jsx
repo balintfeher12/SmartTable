@@ -10,6 +10,9 @@ import AdminPanel from "./pages/AdminPanel";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Etlap from "./pages/Etlap";
+import CookieBanner from "./components/CookieBanner";
+import Privacy from "./pages/Privacy";
+import NotFound from "./pages/NotFound";
 import "./styles/base.css";
 import "./styles/navbar.css";
 import "./styles/auth.css";
@@ -23,7 +26,6 @@ import "./styles/footer.css";
 function Home() {
   return (
     <div>
-      {/* ===== HERO ===== */}
       <div className="hero">
         <div className="hero-overlay" />
         <div className="hero-box">
@@ -44,7 +46,6 @@ function Home() {
         </div>
       </div>
 
-      {/* ===== ELŐNYÖK SÁV ===== */}
       <div className="features-bar">
         <div className="feature-item">
           <span className="feature-ikon">⚡</span>
@@ -79,7 +80,6 @@ function Home() {
         </div>
       </div>
 
-      {/* ===== AJÁNLÓ SZEKCIÓ ===== */}
       <div className="about-strip">
         <div className="about-strip-img" />
         <div className="about-strip-text">
@@ -97,7 +97,6 @@ function Home() {
         </div>
       </div>
 
-      {/* ===== ÉTLAP KIEMELT ===== */}
       <div className="menu-teaser">
         <div className="menu-teaser-inner">
           <p className="strip-eyebrow" style={{ textAlign: "center" }}>Kínálatunkból</p>
@@ -126,7 +125,6 @@ function Home() {
         </div>
       </div>
 
-      {/* ===== CTA SÁV ===== */}
       <div className="cta-strip">
         <h2>Készen áll az asztalt foglalni?</h2>
         <p>Válasszon időpontot és asztalt percek alatt, online.</p>
@@ -153,11 +151,11 @@ export default function App() {
         <Route path="/rolunk"      element={<About />} />
         <Route path="/kapcsolat"   element={<Contact />} />
         <Route path="/etlap"       element={<Etlap />} />
+        <Route path="/adatvedelem" element={<Privacy />} />
+        <Route path="*"            element={<NotFound />} />
       </Routes>
+      <CookieBanner />
       <Footer />
     </Router>
   );
-}// routing frissítve
-// footer beillesztve
-// admin route javítva
-// app foglalas
+}

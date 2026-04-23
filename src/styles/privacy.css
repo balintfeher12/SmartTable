@@ -1,0 +1,35 @@
+.privacy-container {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 0 24px;
+    color: white;
+  }
+  
+  .privacy-container h1 {
+    color: #facc15;
+    margin-bottom: 8px;
+    font-size: 32px;
+  }
+  
+  .privacy-container h2 {
+    color: #facc15;
+    font-size: 20px;
+    margin-top: 32px;
+    margin-bottom: 8px;
+  }
+  
+  .privacy-container p {
+    color: #cccccc;
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+  
+  .privacy-container a {
+    color: #facc15;
+    text-decoration: underline;
+  }
+  
+  .privacy-subtitle {
+    color: #aaa;
+    margin-bottom: 32px;
+  }
