@@ -1,0 +1,37 @@
+.navbar {
+  background: #0b1c4d;
+  padding: 20px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar-logo {
+  height: 40px;
+}
+
+.navbar-title {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.navbar-right {
+  display: flex;
+  gap: 30px;
+}
+
+.navbar-right a {
+  color: white;
+  text-decoration: none;
+}
+
+.navbar-right a:hover {
+  text-decoration: underline;
+}/* navbar mobil */
